@@ -25,7 +25,7 @@
     .slide {
       position: absolute; inset: 0;
       display: flex; flex-direction: column; justify-content: center;
-      padding: clamp(2rem, 6vw, 5rem) clamp(2rem, 8vw, 7rem) 5.5rem;
+      padding: clamp(1.6rem, 5vw, 4rem) clamp(1.6rem, 6vw, 5.5rem) 5.5rem;
       opacity: 0; visibility: hidden; transform: translateY(14px);
       transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
       background:
@@ -57,7 +57,7 @@
     }
     .kicker {
       font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--deep); font-weight: 600; margin-bottom: 1rem;
+      color: var(--deep); font-weight: 600; margin-bottom: 0.75rem;
     }
     h1 {
       font-family: "ZCOOL XiaoWei", "Songti SC", serif; font-weight: 400;
@@ -65,7 +65,7 @@
     }
     h2 {
       font-family: "ZCOOL XiaoWei", "Songti SC", serif; font-weight: 400;
-      font-size: clamp(2rem, 5vw, 3.3rem); line-height: 1.2; margin-bottom: 1.4rem; max-width: 16ch;
+      font-size: clamp(1.8rem, 4.5vw, 3rem); line-height: 1.2; margin-bottom: 1rem; max-width: 16ch;
     }
     .lead { font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: var(--muted); max-width: 38ch; line-height: 1.55; }
     ul { list-style: none; display: grid; gap: 0.85rem; max-width: 44rem; }
@@ -94,22 +94,41 @@
       font-size: 1rem;
     }
     .proj {
-      display: grid; gap: 0.85rem; max-width: 46rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.85rem;
+      max-width: 56rem;
     }
+    .proj.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .proj.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .proj-item {
-      padding: 0.9rem 1.1rem;
+      padding: 0.65rem;
       background: rgba(255,255,255,0.55);
       border: 1px solid rgba(26, 35, 50, 0.08);
+      min-width: 0;
+    }
+    .proj-item img {
+      width: 100%;
+      height: clamp(96px, 14vh, 140px);
+      object-fit: cover;
+      display: block;
+      margin-bottom: 0.55rem;
+      background: #d7e0ea;
     }
     .proj-item strong {
       display: block;
-      font-size: clamp(1.05rem, 2vw, 1.2rem);
-      margin-bottom: 0.3rem;
+      font-size: clamp(0.95rem, 1.7vw, 1.1rem);
+      margin-bottom: 0.25rem;
     }
     .proj-item p {
       color: var(--muted);
-      font-size: clamp(0.95rem, 1.7vw, 1.05rem);
-      line-height: 1.45;
+      font-size: clamp(0.82rem, 1.4vw, 0.95rem);
+      line-height: 1.4;
+    }
+    .note {
+      margin-top: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--muted);
     }
     .chrome {
       position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
@@ -125,9 +144,7 @@
     .chrome button:hover, .chrome button:focus-visible {
       background: rgba(238, 243, 248, 0.1); border-color: rgba(238, 243, 248, 0.55); outline: none;
     }
-    .chrome button:disabled {
-      opacity: 0.35; cursor: default;
-    }
+    .chrome button:disabled { opacity: 0.35; cursor: default; }
     .counter { font-variant-numeric: tabular-nums; letter-spacing: 0.06em; color: rgba(238, 243, 248, 0.85); }
     .hit-prev, .hit-next {
       position: fixed; top: 0; bottom: 3.5rem; width: 18%; z-index: 5;
@@ -135,9 +152,13 @@
     }
     .hit-prev { left: 0; }
     .hit-next { right: 0; }
+    @media (max-width: 900px) {
+      .proj.cols-3, .proj.cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
     @media (max-width: 640px) {
       .hit-prev, .hit-next { display: none; }
       .meta-row { grid-template-columns: 1fr; gap: 0.25rem; }
+      .proj.cols-3, .proj.cols-4 { grid-template-columns: 1fr; }
       .chrome button { min-width: 4.8rem; padding: 0.65rem 0.8rem; }
     }
   </style>
@@ -195,20 +216,24 @@
     <section class="slide" data-page="5">
       <p class="kicker">Sanbao</p>
       <h2>汝州三宝</h2>
-      <div class="proj">
+      <div class="proj cols-3">
         <div class="proj-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Ru_Ware.JPG/640px-Ru_Ware.JPG" alt="汝瓷" loading="lazy" />
           <strong>汝瓷</strong>
           <p>雨过天青云破处；古有「纵有家财万贯，不如汝瓷一片」。</p>
         </div>
         <div class="proj-item">
+          <img src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?auto=format&amp;fit=crop&amp;w=640&amp;q=80" alt="汝石 / 玉石" loading="lazy" />
           <strong>汝石</strong>
           <p>又称梅花玉，底色如墨，天然梅花纹饰，质地细腻坚硬。</p>
         </div>
         <div class="proj-item">
+          <img src="https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&amp;fit=crop&amp;w=640&amp;q=80" alt="书法碑帖" loading="lazy" />
           <strong>汝帖</strong>
           <p>又称「兰亭序帖」，与淳化阁帖等并称中国四大名帖。</p>
         </div>
       </div>
+      <p class="note">图片来源：Wikimedia Commons / Unsplash（示意）</p>
     </section>
 
     <section class="slide" data-page="6">
@@ -234,36 +259,57 @@
     <section class="slide" data-page="8">
       <p class="kicker">Scenery</p>
       <h2>家乡风光</h2>
-      <div class="proj">
+      <div class="proj cols-4">
         <div class="proj-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/20240709_Fengxue_Temple_07.jpg/640px-20240709_Fengxue_Temple_07.jpg" alt="风穴寺" loading="lazy" />
           <strong>风穴寺</strong>
-          <p>中原四大名寺之一，国家 4A 级景区，七祖塔为唐代高塔瑰宝。</p>
+          <p>中原四大名寺之一，国家 4A 级景区。</p>
         </div>
         <div class="proj-item">
-          <strong>九峰山 · 怪坡</strong>
-          <p>山水秀美与奇观并存，适合周末徒步与打卡。</p>
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=640&amp;q=80" alt="山景" loading="lazy" />
+          <strong>九峰山</strong>
+          <p>山水秀美，适合周末徒步与打卡。</p>
         </div>
         <div class="proj-item">
-          <strong>汝州温泉</strong>
-          <p>有「万古神汤」之美誉，是康养度假的热门选择。</p>
+          <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&amp;fit=crop&amp;w=640&amp;q=80" alt="坡道" loading="lazy" />
+          <strong>怪坡</strong>
+          <p>以反常坡道奇观闻名的趣味景区。</p>
+        </div>
+        <div class="proj-item">
+          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&amp;fit=crop&amp;w=640&amp;q=80" alt="温泉" loading="lazy" />
+          <strong>温泉</strong>
+          <p>有「万古神汤」之美誉，康养度假热门。</p>
         </div>
       </div>
+      <p class="note">风穴寺为汝州实景图；其余为公开图库示意</p>
     </section>
 
     <section class="slide" data-page="9">
       <p class="kicker">Food</p>
       <h2>家乡味道</h2>
-      <ul>
-        <li>绿豆粉皮：薄如蝉翼、嫩白透明，汝州传统特产</li>
-        <li>锅盔、猪肉灌肠、胡辣汤、浆面：街头日常烟火气</li>
-        <li>还有老汝州家宴等本地风味，一口就是家乡</li>
-      </ul>
-      <div class="chip-row" style="margin-top:1.3rem">
-        <div class="chip">绿豆粉皮</div>
-        <div class="chip">锅盔</div>
-        <div class="chip">灌肠</div>
-        <div class="chip">胡辣汤</div>
+      <div class="proj cols-4">
+        <div class="proj-item">
+          <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&amp;fit=crop&amp;w=640&amp;q=80" alt="粉皮类美食" loading="lazy" />
+          <strong>绿豆粉皮</strong>
+          <p>薄如蝉翼、嫩白透明，汝州传统特产。</p>
+        </div>
+        <div class="proj-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/%E9%99%95%E8%A5%BF%E5%85%AB%E5%A4%A7%E6%80%AA%E9%93%9C%E9%9B%95%E2%80%94%E2%80%94%E9%94%85%E7%9B%94%E5%83%8F%E9%94%85%E7%9B%96_-_panoramio.jpg/640px-%E9%99%95%E8%A5%BF%E5%85%AB%E5%A4%A7%E6%80%AA%E9%93%9C%E9%9B%95%E2%80%94%E2%80%94%E9%94%85%E7%9B%94%E5%83%8F%E9%94%85%E7%9B%96_-_panoramio.jpg" alt="锅盔" loading="lazy" />
+          <strong>锅盔</strong>
+          <p>厚实耐嚼的地方面点，街头常见。</p>
+        </div>
+        <div class="proj-item">
+          <img src="https://images.unsplash.com/photo-1528605105345-5344ea20e269?auto=format&amp;fit=crop&amp;w=640&amp;q=80" alt="灌肠类美食" loading="lazy" />
+          <strong>猪肉灌肠</strong>
+          <p>本地风味小吃，烟火气十足。</p>
+        </div>
+        <div class="proj-item">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/A_bowl_of_Hu_la_tang.jpg/640px-A_bowl_of_Hu_la_tang.jpg" alt="胡辣汤" loading="lazy" />
+          <strong>胡辣汤</strong>
+          <p>河南经典早餐，香辣暖胃。</p>
+        </div>
       </div>
+      <p class="note">胡辣汤、锅盔雕塑为公开资料图；其余为示意</p>
     </section>
 
     <section class="slide" data-page="10">
@@ -393,12 +439,8 @@
       function next() { show(index + 1); }
       function prev() { show(index - 1); }
 
-      nextBtns.forEach(function (btn) {
-        btn.addEventListener("click", next);
-      });
-      prevBtns.forEach(function (btn) {
-        btn.addEventListener("click", prev);
-      });
+      nextBtns.forEach(function (btn) { btn.addEventListener("click", next); });
+      prevBtns.forEach(function (btn) { btn.addEventListener("click", prev); });
 
       document.addEventListener("keydown", function (e) {
         if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
