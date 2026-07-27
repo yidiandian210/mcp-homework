@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MCP Learning Notes · HTML PPT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #12241f;
+      --muted: #3d564c;
+      --accent: #c45c26;
+      --sea: #1a6b5c;
+      --glow: rgba(26, 107, 92, 0.18);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%; overflow: hidden;
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink); background: #0d1a16;
+    }
+    .deck { position: relative; width: 100vw; height: 100vh; }
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(2rem, 6vw, 5rem) clamp(2rem, 8vw, 7rem) 5.5rem;
+      opacity: 0; visibility: hidden; transform: translateY(14px);
+      transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+      background:
+        radial-gradient(1200px 600px at 85% -10%, var(--glow), transparent 55%),
+        linear-gradient(145deg, #eef6f1 0%, #f7faf8 42%, #e7f0ea 100%);
+    }
+    .slide.is-active { opacity: 1; visibility: visible; transform: translateY(0); z-index: 1; }
+    .slide::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
+      background: linear-gradient(180deg, var(--sea), var(--accent));
+    }
+    .kicker {
+      font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--sea); font-weight: 600; margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: "Instrument Serif", Georgia, serif; font-weight: 400;
+      font-size: clamp(2.6rem, 7vw, 5rem); line-height: 1.05; max-width: 14ch; margin-bottom: 1.25rem;
+    }
+    h2 {
+      font-family: "Instrument Serif", Georgia, serif; font-weight: 400;
+      font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.15; margin-bottom: 1.5rem; max-width: 18ch;
+    }
+    .lead { font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: var(--muted); max-width: 36ch; line-height: 1.55; }
+    .source {
+      margin-top: 2rem; font-size: 0.95rem; color: var(--muted);
+      border-left: 3px solid var(--accent); padding-left: 0.9rem;
+    }
+    ul { list-style: none; display: grid; gap: 0.9rem; max-width: 42rem; }
+    li {
+      font-size: clamp(1.05rem, 2.1vw, 1.35rem); line-height: 1.45;
+      padding-left: 1.35rem; position: relative;
+    }
+    li::before {
+      content: ""; position: absolute; left: 0; top: 0.55em;
+      width: 0.55rem; height: 0.55rem; border-radius: 2px; background: var(--accent);
+    }
+    .grid-2 {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem; max-width: 48rem;
+    }
+    .card-block {
+      padding: 1.25rem 1.35rem; background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(18, 36, 31, 0.08);
+    }
+    .card-block strong {
+      display: block; font-size: 0.8rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--sea); margin-bottom: 0.55rem;
+    }
+    .card-block p { font-size: 1.15rem; line-height: 1.4; }
+    code {
+      font-family: ui-monospace, Consolas, monospace;
+      font-size: 0.92em; background: rgba(26, 107, 92, 0.1);
+      padding: 0.1em 0.35em; border-radius: 4px;
+    }
+    .chrome {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 0.9rem clamp(1rem, 4vw, 2.5rem);
+      background: rgba(13, 26, 22, 0.92); color: #e8f2ee; backdrop-filter: blur(8px);
+    }
+    .chrome button {
+      appearance: none; border: 1px solid rgba(232, 242, 238, 0.28);
+      background: transparent; color: inherit; font: inherit; font-size: 0.95rem;
+      padding: 0.7rem 1.15rem; min-width: 6.5rem; cursor: pointer;
+    }
+    .chrome button:hover, .chrome button:focus-visible {
+      background: rgba(232, 242, 238, 0.1); border-color: rgba(232, 242, 238, 0.55); outline: none;
+    }
+    .counter { font-variant-numeric: tabular-nums; letter-spacing: 0.06em; color: rgba(232, 242, 238, 0.85); }
+    .hit-prev, .hit-next {
+      position: fixed; top: 0; bottom: 3.5rem; width: 18%; z-index: 5;
+      cursor: pointer; background: transparent; border: 0;
+    }
+    .hit-prev { left: 0; }
+    .hit-next { right: 0; }
+    @media (max-width: 640px) {
+      .hit-prev, .hit-next { display: none; }
+      .chrome button { min-width: 4.8rem; padding: 0.65rem 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+    <section class="slide is-active" data-page="1">
+      <p class="kicker">MCP Practice</p>
+      <h1>MCP Learning Notes</h1>
+      <p class="lead">From protocol basics to reading and writing GitHub repos inside Cursor.</p>
+      <p class="source">Source: yidiandian210 / mcp-homework / learning-notes.md</p>
+    </section>
+    <section class="slide" data-page="2">
+      <p class="kicker">Agenda</p>
+      <h2>What we cover</h2>
+      <ul>
+        <li>What MCP is</li>
+        <li>GitHub MCP inside Cursor</li>
+        <li>Read vs write tools</li>
+        <li>What this practice completed</li>
+      </ul>
+    </section>
+    <section class="slide" data-page="3">
+      <p class="kicker">Concept</p>
+      <h2>What is MCP?</h2>
+      <p class="lead">Model Context Protocol lets an AI client call external tools — not just chat.</p>
+    </section>
+    <section class="slide" data-page="4">
+      <p class="kicker">Setup</p>
+      <h2>Cursor + GitHub MCP</h2>
+      <p class="lead">After wiring GitHub MCP Server in Cursor, the AI can read and write GitHub repositories through tools.</p>
+    </section>
+    <section class="slide" data-page="5">
+      <p class="kicker">Read</p>
+      <h2>Read: get repo content</h2>
+      <div class="grid-2">
+        <div class="card-block"><strong>Tool</strong><p><code>get_file_contents</code></p></div>
+        <div class="card-block"><strong>Capability</strong><p>Read files and folders, then summarize what the doc is about.</p></div>
+      </div>
+    </section>
+    <section class="slide" data-page="6">
+      <p class="kicker">Write</p>
+      <h2>Write: push content back</h2>
+      <div class="grid-2">
+        <div class="card-block"><strong>Tool</strong><p><code>create_or_update_file</code></p></div>
+        <div class="card-block"><strong>Capability</strong><p>Create or update files; changes show up on GitHub.</p></div>
+      </div>
+    </section>
+    <section class="slide" data-page="7">
+      <p class="kicker">Practice</p>
+      <h2>This practice</h2>
+      <ul>
+        <li>Account: <code>yidiandian210</code></li>
+        <li>Repo: <code>mcp-homework</code></li>
+        <li>Done: read README, write learning notes</li>
+      </ul>
+    </section>
+    <section class="slide" data-page="8">
+      <p class="kicker">Takeaways</p>
+      <h2>Summary</h2>
+      <ul>
+        <li>MCP turns AI from chat-only into actionable tooling</li>
+        <li>Read with <code>get_file_contents</code>, write with <code>create_or_update_file</code></li>
+        <li>With GitHub MCP connected, the homework read/write checks pass</li>
+      </ul>
+    </section>
+  </div>
+  <button class="hit-prev" type="button" aria-label="Previous" data-prev></button>
+  <button class="hit-next" type="button" aria-label="Next" data-next></button>
+  <div class="chrome">
+    <button type="button" data-prev>Prev</button>
+    <span class="counter"><span data-current>1</span> / <span data-total>8</span></span>
+    <button type="button" data-next>Next</button>
+  </div>
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+      var total = slides.length;
+      var index = 0;
+      var currentEl = document.querySelector("[data-current]");
+      var totalEl = document.querySelector("[data-total]");
+      totalEl.textContent = String(total);
+      function show(i) {
+        index = (i + total) % total;
+        slides.forEach(function (slide, n) {
+          slide.classList.toggle("is-active", n === index);
+        });
+        currentEl.textContent = String(index + 1);
+      }
+      function next() { show(index + 1); }
+      function prev() { show(index - 1); }
+      document.querySelectorAll("[data-next]").forEach(function (btn) {
+        btn.addEventListener("click", next);
+      });
+      document.querySelectorAll("[data-prev]").forEach(function (btn) {
+        btn.addEventListener("click", prev);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
+          e.preventDefault(); next();
+        } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+          e.preventDefault(); prev();
+        } else if (e.key === "Home") {
+          e.preventDefault(); show(0);
+        } else if (e.key === "End") {
+          e.preventDefault(); show(total - 1);
+        }
+      });
+      show(0);
+    })();
+  </script>
+</body>
+</html>
