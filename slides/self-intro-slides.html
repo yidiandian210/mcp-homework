@@ -125,6 +125,9 @@
     .chrome button:hover, .chrome button:focus-visible {
       background: rgba(238, 243, 248, 0.1); border-color: rgba(238, 243, 248, 0.55); outline: none;
     }
+    .chrome button:disabled {
+      opacity: 0.35; cursor: default;
+    }
     .counter { font-variant-numeric: tabular-nums; letter-spacing: 0.06em; color: rgba(238, 243, 248, 0.85); }
     .hit-prev, .hit-next {
       position: fixed; top: 0; bottom: 3.5rem; width: 18%; z-index: 5;
@@ -274,22 +277,35 @@
       var index = 0;
       var currentEl = document.querySelector("[data-current]");
       var totalEl = document.querySelector("[data-total]");
+      var prevBtns = document.querySelectorAll("[data-prev]");
+      var nextBtns = document.querySelectorAll("[data-next]");
       totalEl.textContent = String(total);
+
       function show(i) {
-        index = (i + total) % total;
+        if (i < 0 || i >= total) return;
+        index = i;
         slides.forEach(function (slide, n) {
           slide.classList.toggle("is-active", n === index);
         });
         currentEl.textContent = String(index + 1);
+        prevBtns.forEach(function (btn) {
+          if (btn.tagName === "BUTTON") btn.disabled = index === 0;
+        });
+        nextBtns.forEach(function (btn) {
+          if (btn.tagName === "BUTTON") btn.disabled = index === total - 1;
+        });
       }
+
       function next() { show(index + 1); }
       function prev() { show(index - 1); }
-      document.querySelectorAll("[data-next]").forEach(function (btn) {
+
+      nextBtns.forEach(function (btn) {
         btn.addEventListener("click", next);
       });
-      document.querySelectorAll("[data-prev]").forEach(function (btn) {
+      prevBtns.forEach(function (btn) {
         btn.addEventListener("click", prev);
       });
+
       document.addEventListener("keydown", function (e) {
         if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
           e.preventDefault(); next();
@@ -301,6 +317,7 @@
           e.preventDefault(); show(total - 1);
         }
       });
+
       show(0);
     })();
   </script>
