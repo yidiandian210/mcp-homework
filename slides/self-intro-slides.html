@@ -50,7 +50,7 @@
       align-items: center;
     }
     .slide.end-slide h1 { max-width: none; }
-    .slide.end-slide .lead { max-width: 28ch; color: rgba(244, 247, 251, 0.78); }
+    .slide.end-slide .lead { max-width: 32ch; color: rgba(244, 247, 251, 0.78); }
     .slide::before {
       content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
       background: linear-gradient(180deg, var(--deep), var(--accent));
@@ -67,33 +67,49 @@
       font-family: "ZCOOL XiaoWei", "Songti SC", serif; font-weight: 400;
       font-size: clamp(2rem, 5vw, 3.3rem); line-height: 1.2; margin-bottom: 1.4rem; max-width: 16ch;
     }
-    .lead { font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: var(--muted); max-width: 34ch; line-height: 1.55; }
-    ul { list-style: none; display: grid; gap: 0.95rem; max-width: 40rem; }
+    .lead { font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: var(--muted); max-width: 36ch; line-height: 1.55; }
+    ul { list-style: none; display: grid; gap: 0.85rem; max-width: 42rem; }
     li {
-      font-size: clamp(1.1rem, 2.2vw, 1.4rem); line-height: 1.45;
+      font-size: clamp(1.05rem, 2vw, 1.3rem); line-height: 1.45;
       padding-left: 1.35rem; position: relative;
     }
     li::before {
       content: ""; position: absolute; left: 0; top: 0.58em;
       width: 0.55rem; height: 0.55rem; border-radius: 2px; background: var(--accent);
     }
-    .meta {
-      display: grid; gap: 1rem; max-width: 40rem;
-    }
+    .meta { display: grid; gap: 0.9rem; max-width: 42rem; }
     .meta-row {
       display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem; align-items: baseline;
-      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
     }
     .meta-row span {
-      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--deep); font-weight: 700;
     }
-    .chip-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.4rem; }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 0.35rem; }
     .chip {
-      padding: 0.55rem 1rem;
+      padding: 0.5rem 0.95rem;
       background: rgba(255,255,255,0.65);
       border: 1px solid rgba(26, 35, 50, 0.08);
-      font-size: 1.05rem;
+      font-size: 1rem;
+    }
+    .proj {
+      display: grid; gap: 0.95rem; max-width: 46rem;
+    }
+    .proj-item {
+      padding: 0.95rem 1.1rem;
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(26, 35, 50, 0.08);
+    }
+    .proj-item strong {
+      display: block;
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      margin-bottom: 0.35rem;
+    }
+    .proj-item p {
+      color: var(--muted);
+      font-size: clamp(0.95rem, 1.7vw, 1.05rem);
+      line-height: 1.45;
     }
     .chrome {
       position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
@@ -128,7 +144,7 @@
     <section class="slide title-slide is-active" data-page="1">
       <p class="kicker">Self Introduction</p>
       <h1>李文语</h1>
-      <p class="lead">软件学院 · 软件工程 · 2321 班 · 大三</p>
+      <p class="lead">河南科技大学 · 软件工程 · 2321 班 · 大三</p>
     </section>
 
     <section class="slide" data-page="2">
@@ -136,9 +152,10 @@
       <h2>基本信息</h2>
       <div class="meta">
         <div class="meta-row"><span>姓名</span><div>李文语</div></div>
-        <div class="meta-row"><span>学院</span><div>软件学院</div></div>
-        <div class="meta-row"><span>专业</span><div>软件工程</div></div>
+        <div class="meta-row"><span>学校</span><div>河南科技大学</div></div>
+        <div class="meta-row"><span>专业</span><div>软件工程（本科）</div></div>
         <div class="meta-row"><span>班级</span><div>2321 班 · 大三</div></div>
+        <div class="meta-row"><span>意向</span><div>人工智能 / 计算机软件 · 郑州</div></div>
       </div>
     </section>
 
@@ -153,31 +170,91 @@
     </section>
 
     <section class="slide" data-page="4">
-      <p class="kicker">Hobbies</p>
-      <h2>兴趣爱好</h2>
-      <p class="lead" style="margin-bottom:1.25rem">最爱编程，也喜欢用舞蹈和游戏放松。</p>
-      <div class="chip-row">
-        <div class="chip">编程</div>
-        <div class="chip">舞蹈</div>
-        <div class="chip">打游戏</div>
-      </div>
-    </section>
-
-    <section class="slide" data-page="5">
-      <p class="kicker">Highlight</p>
-      <h2>个人亮点</h2>
-      <p class="lead">从 0 搭建个人记账系统</p>
-      <ul style="margin-top:1.5rem">
-        <li>独立完成需求分析与功能设计</li>
-        <li>从零落地，把想法做成可用产品</li>
-        <li>锻炼了全流程工程实践能力</li>
+      <p class="kicker">Education</p>
+      <h2>教育经历</h2>
+      <ul>
+        <li>2023.09 - 至今 · 河南科技大学 · 软件工程 · 本科</li>
+        <li>扎实的计算机专业基础，关注人工智能方向</li>
+        <li>积极参与编程竞赛与学术讲座，拓宽专业视野</li>
       </ul>
     </section>
 
-    <section class="slide end-slide" data-page="6">
+    <section class="slide" data-page="5">
+      <p class="kicker">Projects</p>
+      <h2>项目经历</h2>
+      <div class="proj">
+        <div class="proj-item">
+          <strong>数据库课程设计</strong>
+          <p>MySQL 小型数据管理系统：用户管理、查询与报表；页面加载提升约 20%。</p>
+        </div>
+        <div class="proj-item">
+          <strong>JavaWeb 课程设计</strong>
+          <p>Spring Boot + MyBatis + MySQL：认证、CRUD、文件上传；获优秀评价。</p>
+        </div>
+        <div class="proj-item">
+          <strong>移动互联网开发</strong>
+          <p>微信小程序 + Spring Boot：登录、展示与交互；渲染速度提升约 20%。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" data-page="6">
+      <p class="kicker">Highlight</p>
+      <h2>个人亮点</h2>
+      <p class="lead">从 0 搭建个人记账系统</p>
+      <ul style="margin-top:1.4rem">
+        <li>独立完成需求分析与功能设计</li>
+        <li>从零落地，把想法做成可用产品</li>
+        <li>锻炼全流程工程实践能力</li>
+      </ul>
+    </section>
+
+    <section class="slide" data-page="7">
+      <p class="kicker">Campus</p>
+      <h2>校园实践</h2>
+      <p class="lead">校级「挑战杯」竞赛 · 三等奖</p>
+      <ul style="margin-top:1.4rem">
+        <li>100+ 支队伍中进入决赛，评分位列前 15%</li>
+        <li>负责关键模块开发与技术方案优化</li>
+        <li>攻克 3 个核心技术问题，模块代码通过率 100%</li>
+      </ul>
+    </section>
+
+    <section class="slide" data-page="8">
+      <p class="kicker">Skills</p>
+      <h2>技能证书</h2>
+      <ul>
+        <li>语言与框架：Java、Python、SQL</li>
+        <li>工具：Office、Excel、Word、Visio、Git</li>
+        <li>英语：CET-4 · 普通话母语</li>
+      </ul>
+      <div class="chip-row" style="margin-top:1.4rem">
+        <div class="chip">Java</div>
+        <div class="chip">Python</div>
+        <div class="chip">SQL</div>
+        <div class="chip">Spring Boot</div>
+        <div class="chip">MySQL</div>
+        <div class="chip">CET-4</div>
+      </div>
+    </section>
+
+    <section class="slide" data-page="9">
+      <p class="kicker">Hobbies</p>
+      <h2>兴趣爱好</h2>
+      <p class="lead" style="margin-bottom:1.25rem">最爱编程，也用舞蹈、音乐和游戏放松。</p>
+      <div class="chip-row">
+        <div class="chip">编程</div>
+        <div class="chip">舞蹈</div>
+        <div class="chip">音乐</div>
+        <div class="chip">绘画</div>
+        <div class="chip">手游</div>
+      </div>
+    </section>
+
+    <section class="slide end-slide" data-page="10">
       <p class="kicker">Thanks</p>
       <h1>感谢聆听</h1>
-      <p class="lead">李文语 · 软件工程 2321 班</p>
+      <p class="lead">李文语 · 河南科技大学 · 软件工程 2321 班</p>
     </section>
   </div>
 
@@ -186,7 +263,7 @@
 
   <div class="chrome">
     <button type="button" data-prev>上一页</button>
-    <span class="counter"><span data-current>1</span> / <span data-total>6</span></span>
+    <span class="counter"><span data-current>1</span> / <span data-total>10</span></span>
     <button type="button" data-next>下一页</button>
   </div>
 
