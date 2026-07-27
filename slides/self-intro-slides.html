@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>李文语 · 自我介绍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,600;9..40,700&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a2332;
+      --muted: #5a6a7a;
+      --accent: #e07a3d;
+      --deep: #243b55;
+      --glow: rgba(36, 59, 85, 0.16);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%; overflow: hidden;
+      font-family: "DM Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+      color: var(--ink); background: #121820;
+    }
+    .deck { position: relative; width: 100vw; height: 100vh; }
+    .slide {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(2rem, 6vw, 5rem) clamp(2rem, 8vw, 7rem) 5.5rem;
+      opacity: 0; visibility: hidden; transform: translateY(14px);
+      transition: opacity 0.35s ease, transform 0.35s ease, visibility 0.35s;
+      background:
+        radial-gradient(900px 500px at 90% 0%, var(--glow), transparent 55%),
+        linear-gradient(150deg, #f4f7fb 0%, #eef3f8 45%, #e4ebf3 100%);
+    }
+    .slide.is-active { opacity: 1; visibility: visible; transform: translateY(0); z-index: 1; }
+    .slide.title-slide {
+      background:
+        radial-gradient(800px 480px at 20% 20%, rgba(224, 122, 61, 0.18), transparent 50%),
+        linear-gradient(145deg, #1e2f45 0%, #243b55 50%, #1a2838 100%);
+      color: #f4f7fb;
+    }
+    .slide.title-slide .kicker { color: #f0b48a; }
+    .slide.title-slide .lead { color: rgba(244, 247, 251, 0.78); }
+    .slide.end-slide {
+      background:
+        radial-gradient(700px 420px at 80% 30%, rgba(224, 122, 61, 0.2), transparent 55%),
+        linear-gradient(145deg, #1e2f45 0%, #243b55 55%, #182433 100%);
+      color: #f4f7fb;
+      text-align: center;
+      align-items: center;
+    }
+    .slide.end-slide h1 { max-width: none; }
+    .slide.end-slide .lead { max-width: 28ch; color: rgba(244, 247, 251, 0.78); }
+    .slide::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 8px;
+      background: linear-gradient(180deg, var(--deep), var(--accent));
+    }
+    .kicker {
+      font-size: 0.85rem; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--deep); font-weight: 600; margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: "ZCOOL XiaoWei", "Songti SC", serif; font-weight: 400;
+      font-size: clamp(2.8rem, 7vw, 5.2rem); line-height: 1.1; max-width: 12ch; margin-bottom: 1.2rem;
+    }
+    h2 {
+      font-family: "ZCOOL XiaoWei", "Songti SC", serif; font-weight: 400;
+      font-size: clamp(2rem, 5vw, 3.3rem); line-height: 1.2; margin-bottom: 1.4rem; max-width: 16ch;
+    }
+    .lead { font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: var(--muted); max-width: 34ch; line-height: 1.55; }
+    ul { list-style: none; display: grid; gap: 0.95rem; max-width: 40rem; }
+    li {
+      font-size: clamp(1.1rem, 2.2vw, 1.4rem); line-height: 1.45;
+      padding-left: 1.35rem; position: relative;
+    }
+    li::before {
+      content: ""; position: absolute; left: 0; top: 0.58em;
+      width: 0.55rem; height: 0.55rem; border-radius: 2px; background: var(--accent);
+    }
+    .meta {
+      display: grid; gap: 1rem; max-width: 40rem;
+    }
+    .meta-row {
+      display: grid; grid-template-columns: 5.5rem 1fr; gap: 1rem; align-items: baseline;
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+    }
+    .meta-row span {
+      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--deep); font-weight: 700;
+    }
+    .chip-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 0.4rem; }
+    .chip {
+      padding: 0.55rem 1rem;
+      background: rgba(255,255,255,0.65);
+      border: 1px solid rgba(26, 35, 50, 0.08);
+      font-size: 1.05rem;
+    }
+    .chrome {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      padding: 0.9rem clamp(1rem, 4vw, 2.5rem);
+      background: rgba(18, 24, 32, 0.92); color: #eef3f8; backdrop-filter: blur(8px);
+    }
+    .chrome button {
+      appearance: none; border: 1px solid rgba(238, 243, 248, 0.28);
+      background: transparent; color: inherit; font: inherit; font-size: 0.95rem;
+      padding: 0.7rem 1.15rem; min-width: 6.5rem; cursor: pointer;
+    }
+    .chrome button:hover, .chrome button:focus-visible {
+      background: rgba(238, 243, 248, 0.1); border-color: rgba(238, 243, 248, 0.55); outline: none;
+    }
+    .counter { font-variant-numeric: tabular-nums; letter-spacing: 0.06em; color: rgba(238, 243, 248, 0.85); }
+    .hit-prev, .hit-next {
+      position: fixed; top: 0; bottom: 3.5rem; width: 18%; z-index: 5;
+      cursor: pointer; background: transparent; border: 0;
+    }
+    .hit-prev { left: 0; }
+    .hit-next { right: 0; }
+    @media (max-width: 640px) {
+      .hit-prev, .hit-next { display: none; }
+      .meta-row { grid-template-columns: 1fr; gap: 0.25rem; }
+      .chrome button { min-width: 4.8rem; padding: 0.65rem 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="deck" id="deck">
+    <section class="slide title-slide is-active" data-page="1">
+      <p class="kicker">Self Introduction</p>
+      <h1>李文语</h1>
+      <p class="lead">软件学院 · 软件工程 · 2321 班 · 大三</p>
+    </section>
+
+    <section class="slide" data-page="2">
+      <p class="kicker">About Me</p>
+      <h2>基本信息</h2>
+      <div class="meta">
+        <div class="meta-row"><span>姓名</span><div>李文语</div></div>
+        <div class="meta-row"><span>学院</span><div>软件学院</div></div>
+        <div class="meta-row"><span>专业</span><div>软件工程</div></div>
+        <div class="meta-row"><span>班级</span><div>2321 班 · 大三</div></div>
+      </div>
+    </section>
+
+    <section class="slide" data-page="3">
+      <p class="kicker">Hometown</p>
+      <h2>我来自哪里</h2>
+      <p class="lead">河南省平顶山市汝州市</p>
+      <ul style="margin-top:1.5rem">
+        <li>河南 · 平顶山 · 汝州</li>
+        <li>带着家乡的踏实，走在软件工程的路上</li>
+      </ul>
+    </section>
+
+    <section class="slide" data-page="4">
+      <p class="kicker">Hobbies</p>
+      <h2>兴趣爱好</h2>
+      <p class="lead" style="margin-bottom:1.25rem">最爱编程，也喜欢用舞蹈和游戏放松。</p>
+      <div class="chip-row">
+        <div class="chip">编程</div>
+        <div class="chip">舞蹈</div>
+        <div class="chip">打游戏</div>
+      </div>
+    </section>
+
+    <section class="slide" data-page="5">
+      <p class="kicker">Highlight</p>
+      <h2>个人亮点</h2>
+      <p class="lead">从 0 搭建个人记账系统</p>
+      <ul style="margin-top:1.5rem">
+        <li>独立完成需求分析与功能设计</li>
+        <li>从零落地，把想法做成可用产品</li>
+        <li>锻炼了全流程工程实践能力</li>
+      </ul>
+    </section>
+
+    <section class="slide end-slide" data-page="6">
+      <p class="kicker">Thanks</p>
+      <h1>感谢聆听</h1>
+      <p class="lead">李文语 · 软件工程 2321 班</p>
+    </section>
+  </div>
+
+  <button class="hit-prev" type="button" aria-label="上一页" data-prev></button>
+  <button class="hit-next" type="button" aria-label="下一页" data-next></button>
+
+  <div class="chrome">
+    <button type="button" data-prev>上一页</button>
+    <span class="counter"><span data-current>1</span> / <span data-total>6</span></span>
+    <button type="button" data-next>下一页</button>
+  </div>
+
+  <script>
+    (function () {
+      var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+      var total = slides.length;
+      var index = 0;
+      var currentEl = document.querySelector("[data-current]");
+      var totalEl = document.querySelector("[data-total]");
+      totalEl.textContent = String(total);
+      function show(i) {
+        index = (i + total) % total;
+        slides.forEach(function (slide, n) {
+          slide.classList.toggle("is-active", n === index);
+        });
+        currentEl.textContent = String(index + 1);
+      }
+      function next() { show(index + 1); }
+      function prev() { show(index - 1); }
+      document.querySelectorAll("[data-next]").forEach(function (btn) {
+        btn.addEventListener("click", next);
+      });
+      document.querySelectorAll("[data-prev]").forEach(function (btn) {
+        btn.addEventListener("click", prev);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") {
+          e.preventDefault(); next();
+        } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+          e.preventDefault(); prev();
+        } else if (e.key === "Home") {
+          e.preventDefault(); show(0);
+        } else if (e.key === "End") {
+          e.preventDefault(); show(total - 1);
+        }
+      });
+      show(0);
+    })();
+  </script>
+</body>
+</html>
